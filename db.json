@@ -1,24 +1,74 @@
 {
   "compras": [
     {
-      "id": 1,
-      "item": "Arroz",
-      "quantidade": 5
+      "item": "lasanha",
+      "quantidade": 2,
+      "id": 3
     },
     {
-      "item": "Ypioca",
-      "quantidade": 20,
+      "item": "cachorro quente",
+      "quantidade": 2,
+      "id": 4
+    },
+    {
+      "item": "frango",
+      "quantidade": 2,
       "id": 5
     },
     {
-      "item": "Heineken",
-      "quantidade": 18,
+      "item": "carne",
+      "quantidade": 2,
       "id": 6
     },
     {
-      "quantidade": 10,
-      "item": "Ovos",
+      "item": "carne",
+      "quantidade": 2,
       "id": 7
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 8
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 9
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 10
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 11
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 12
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 13
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 14
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 15
+    },
+    {
+      "item": "carne",
+      "quantidade": 2,
+      "id": 16
     }
   ]
 }
