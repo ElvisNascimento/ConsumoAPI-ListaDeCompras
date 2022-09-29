@@ -1,0 +1,24 @@
+{
+  "compras": [
+    {
+      "id": 1,
+      "item": "Arroz",
+      "quantidade": 5
+    },
+    {
+      "item": "Ypioca",
+      "quantidade": 20,
+      "id": 5
+    },
+    {
+      "item": "Heineken",
+      "quantidade": 18,
+      "id": 6
+    },
+    {
+      "quantidade": 10,
+      "item": "Ovos",
+      "id": 7
+    }
+  ]
+}
