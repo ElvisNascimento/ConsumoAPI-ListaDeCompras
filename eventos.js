@@ -1,18 +1,22 @@
-async function excluir (id) {
+const url ='https://633349f2573c03ab0b5b9af4.mockapi.io/ListaDeCompras/'
+
+
+async function excluir(id) {
     let resposta = confirm('Deseja excluir este item?');
     if(resposta != true)
     {
         return;
+    }else{
+        await fetch(url + id, {
+            method: 'DELETE'
+        });
+        atualizarLista();
     }
-    await fetch('http://localhost:8000/compras/'+id, {
-        method: 'DELETE'
-    });
-    atualizarLista();
 }
 
 function atualizarLista() {
     tabela_compras.innerHTML ='';
-    fetch('http://localhost:8000/compras')
+    fetch(url)
         .then(function (resposta) {
             return resposta.json();
         })
@@ -27,7 +31,7 @@ function atualizarLista() {
                         <button onclick="excluir(${cadaItem.id})" class="btn btn-danger">
                             Excluir
                         </button>
-                        <button onclick="editarItem(${cadaItem.id})" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal">
+                        <button onclick="editarItem(${cadaItem.id})" class="btn btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditar">
                             Editar
                         </button>
                     </td>
@@ -36,17 +40,14 @@ function atualizarLista() {
         });
     })
 }
-
-atualizarLista();
-function inserirNovoItem(){
+async function inserirNovoItem(){
     event.preventDefault();
     let dados ={
         item: input_item.value,
         quantidade: parseInt(input_quantidade.value),    
     };
-    
-    if(dados.item != '' || dados.quantidade){
-        fetch('http://localhost:8000/compras',{
+    if(dados.item !== '' && dados.quantidade >= 1){
+        await fetch(url,{
             method: 'POST',
             body: JSON.stringify(dados),// convertendo dados que é um objeto em um novo array de string
             headers: {
@@ -57,26 +58,43 @@ function inserirNovoItem(){
         .then(item => atualizarLista());
 
         form_add.reset();
+        let x = document.querySelector('[data-bs-dismiss="modal"]');
+        x.dispatchEvent(new Event('click'));
+        
     }else{
         alert('Não há items para serem adicionados!');
     }
-
 }
-function editarItem()
+async function editarItem(id)
 {
-    //fazer um fetch get com o id
-    event.preventDefault();
-    let dados ={
-        item: nome_item.value,
-        quantidade: parseInt(numero_quantidade.value),
+    await fetch(url + id)//url + o id do item que foi selecionado
+    .then(res=> res.json())
+    .then(dados =>{
+        input_editar_id.value = dados.id;
+        input_editar_item.value = dados.item;
+        input_editar_quantidade.value = dados.quantidade;
+    });
+}
+async function atualizarItemEditado()
+{
+    event.preventDefault();//impede a pagina de recarregar
+    console.log(2);
+    let dados = {
+        id: input_editar_id.value,
+        item: input_editar_item.value,
+        quantidade: input_editar_quantidade.value,
     };
-    fetch('http://localhost:8000/compras',{
-        method: 'PATCH',
-        body: JSON.parse(dados),// convertendo dados que é um objeto em um novo array de string
+    await fetch(url + dados.id,{
+        method: 'PUT',
+        body: JSON.stringify(dados),// convertendo dados que é um objeto em um novo array de string
         headers: {
             'Content-Type':'application/json'
         }
     })
-    .then(resposta => resposta.json())
-    .then(item => atualizarLista());
+    .then(res => res.json())
+    .then(() => atualizarLista());
+    let x = document.querySelector('[data-bs-dismiss="offcanvas"]');
+    x.dispatchEvent(new Event('click'));
 }
+
+atualizarLista();
